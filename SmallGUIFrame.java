@@ -15,7 +15,6 @@ public class SmallGUIFrame extends JFrame
     JMenu menuFile = new JMenu();
     JMenuItem menuFileExit = new JMenuItem();
     TimerTest testTimer1 = new TimerTest();
-    boolean play = true;
 
     /**
     * The constructor

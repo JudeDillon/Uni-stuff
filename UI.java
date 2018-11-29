@@ -12,17 +12,21 @@ public class UI extends JFrame {
     /**
      * Creates new form BankFrame
      */
-    public UI() {
+    public UI() 
+    {
         initFrame();
         setVisible(true);
-        close();
     }
     
-    private void initFrame() {
-
-        this.addPanels();
+    private void initFrame() 
+    {
+        this.addControlPanel();
         this.setLayout();
-        
+        this.addListeners();
+    }
+    
+    private void addListeners()
+    {
         //This is for starting the timer 
         controlPanel.playButton.addActionListener(new ActionListener()
         {
@@ -37,19 +41,44 @@ public class UI extends JFrame {
         {
             public void actionPerformed(ActionEvent e)
             {
-                drawingPanel.initPanel();
+                addDrawingPanels();
+            }
+        });
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+ 
+        this.addWindowListener( new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent e)
+            {
+                JFrame frame = (JFrame)e.getSource();
+
+                int result = JOptionPane.showConfirmDialog(
+                    frame,
+                    "Are you sure you want to exit the application?",
+                    "Exit Application",
+                    JOptionPane.YES_NO_OPTION);
+
+                if (result == JOptionPane.YES_OPTION)
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         });
     }
     
-    private void addPanels()
+    private void addControlPanel()
     {
         this.getContentPane().add(controlPanel);
+    }
+    
+    private void addDrawingPanels()
+    {
         this.getContentPane().add(drawingPanel);
+        drawingPanel.initPanel();
     }
     
     private void setLayout()
     {
+        drawingPanel.setBackground(Color.WHITE);
         setMinimumSize(new java.awt.Dimension(800, 300));
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,36 +94,5 @@ public class UI extends JFrame {
             .addComponent(controlPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(drawingPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-    }
-    
-    protected void windowClosed()
-            {
-            // TODO: Check if it is safe to close the application
-            // Exit application.
-            System.exit(0);
-            }
-    
-    private void close()
-    {
-//        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-//        addWindowListener(
-//                new WindowAdapter()
-//                {
-//                        @Override
-//                    public void windowClosing(WindowEvent e)
-//                    {        
-//                        closePane = JOptionPane.showConfirmDialog("Are you sure?", JOptionPane.YES_NO_OPTION);
-//                        if (option == JOptionPane.YES_OPTION)
-//                        {
-//                            // yes option
-//                            System.out.print("Yes");
-//                            System.exit(0);
-//                        }
-//                        else
-//                        {
-//                            closePane.setVisible(false);
-//                        }
-//                    }
-//                });
     }
 }

@@ -16,8 +16,9 @@ import javax.swing.*;
  *
  * @author Gareth
  */
-public class Drawing extends JPanel {
 
+public class Drawing extends JPanel 
+{
     JLabel graphLbl = new JLabel();
     TimerTest timer1 = new TimerTest();
     
@@ -32,13 +33,13 @@ public class Drawing extends JPanel {
     {
         
         timer1.stopTimer(); //this calls the method to stop the Timer
-        System.out.println("This is a list of transactions in chronological order: " + timer1.getAmountList());  
-        //graphButton.setVisible(true);
-        //graphButton.revalidate();
+        System.out.println("This is a list of transactions in chronological order: " + timer1.getAmountList());
         
         //adds the Graph Panel to the GUI
         DrawingPanel centreGraphing = new DrawingPanel(timerRef.getAmountList());
         this.add(centreGraphing);
+        centreGraphing.setBackground(Color.blue);
+        this.setSize(400,400);
         
         //this method allows the graph to appear on click
         centreGraphing.revalidate();
