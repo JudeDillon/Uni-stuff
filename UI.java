@@ -1,4 +1,4 @@
-package mainapp;
+package guitest;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -7,7 +7,7 @@ import javax.swing.*;
 public class UI extends JFrame {
     
     private final Control controlPanel = new Control();
-    private final Drawing drawingPanel = new Drawing();
+    public Drawing drawingPanel = new Drawing();
     private final JOptionPane closePane = new JOptionPane();
     /**
      * Creates new form BankFrame
@@ -17,13 +17,29 @@ public class UI extends JFrame {
         setVisible(true);
         close();
     }
-
-                  
+    
     private void initFrame() {
 
         this.addPanels();
         this.setLayout();
-
+        
+        //This is for starting the timer 
+        controlPanel.playButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                drawingPanel.playButton(controlPanel.stopButton);
+            }
+        });
+        
+        //This is the listener to stop the timer 
+        controlPanel.stopButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                drawingPanel.initPanel();
+            }
+        });
     }
     
     private void addPanels()
@@ -50,6 +66,13 @@ public class UI extends JFrame {
             .addComponent(drawingPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }
+    
+    protected void windowClosed()
+            {
+            // TODO: Check if it is safe to close the application
+            // Exit application.
+            System.exit(0);
+            }
     
     private void close()
     {

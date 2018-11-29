@@ -3,31 +3,56 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mainapp;
+package guitest;
 
+import guitest.DrawingPanel;
+import guitest.TimerTest;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.*;
 /**
  *
  * @author Gareth
  */
 public class Drawing extends JPanel {
+
     JLabel graphLbl = new JLabel();
+    TimerTest timer1 = new TimerTest();
     
-    public Drawing()
+    protected void initPanel()
     {
-        initPanel();
+        graphLbl.setText("GRAPH");
+        drawGraph(timer1);
+        this.revalidate();
     }
     
-    private void initPanel()
+    public void drawGraph(TimerTest timerRef)
     {
         
-        graphLbl.setText("GRAPH");
+        timer1.stopTimer(); //this calls the method to stop the Timer
+        System.out.println("This is a list of transactions in chronological order: " + timer1.getAmountList());  
+        //graphButton.setVisible(true);
+        //graphButton.revalidate();
         
+        //adds the Graph Panel to the GUI
+        DrawingPanel centreGraphing = new DrawingPanel(timerRef.getAmountList());
+        this.add(centreGraphing);
         
-        this.add(graphLbl);        
-        
+        //this method allows the graph to appear on click
+        centreGraphing.revalidate();
+    }
+    
+    public void playButton(JButton graphButton)
+    {
+       //adds the Timer
+        timer1.timer();
+    }
+    
+    public TimerTest getTimerRef()
+    {
+        return timer1;
     }
     
     private void setLayout()

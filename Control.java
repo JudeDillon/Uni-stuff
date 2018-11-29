@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mainapp;
+package guitest;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -25,10 +25,10 @@ public class Control extends JPanel
 
     private final JTextField intiBalTxt = new JTextField();
     private final JButton createAccBtn = new JButton();
-    private final JToggleButton startStopTBtn = new JToggleButton();
     private final JLabel reportLbl = new JLabel();
-    private final JButton maxReportBtn = new JButton();
-    private final JButton minReportBtn = new JButton();
+    protected final JButton playButton = new JButton();
+    protected final JButton stopButton = new JButton();
+    
 
         
     public Control()
@@ -42,7 +42,7 @@ public class Control extends JPanel
         setLayout();
         
         addCom();
-        
+         
         accTypeBox.addActionListener(
             new ActionListener()
             {
@@ -64,10 +64,9 @@ public class Control extends JPanel
         intiBalLbl.setText("Intial Balance");
         intiBalTxt.setText("PLease Enter account balance in digits");
         createAccBtn.setText("Create Account");
-        startStopTBtn.setText("Pause/Play");
+        playButton.setText("Play");
+        stopButton.setText("Stop");//This button should graph the graph        
         reportLbl.setText("Reports");
-        maxReportBtn.setText("Max");
-        minReportBtn.setText("Min");
     }
     
     private void addCom()
@@ -78,10 +77,10 @@ public class Control extends JPanel
         this.add(intiBalLbl);
         this.add(intiBalTxt);
         this.add(createAccBtn);
-        this.add(startStopTBtn);
+        this.add(playButton);
+        this.add(stopButton);
         this.add(reportLbl);
-        this.add(minReportBtn);
-        this.add(maxReportBtn);
+
     }
     
     private void setLayout()
@@ -96,14 +95,13 @@ public class Control extends JPanel
                     .addComponent(settingsLbl, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(GroupLayout.Alignment.TRAILING, ControlLayout.createSequentialGroup()
                         .addComponent(createAccBtn)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(startStopTBtn))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(ControlLayout.createSequentialGroup()
                         .addGroup(ControlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(ControlLayout.createSequentialGroup()
-                                .addComponent(minReportBtn)
+                                .addComponent(playButton)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(maxReportBtn))
+                                .addComponent(stopButton))
                             .addComponent(accTypeLbl)
                             .addComponent(accTypeBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addComponent(intiBalLbl)
@@ -128,14 +126,13 @@ public class Control extends JPanel
                 .addComponent(intiBalTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ControlLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(startStopTBtn)
                     .addComponent(createAccBtn))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(reportLbl)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ControlLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(minReportBtn)
-                    .addComponent(maxReportBtn))
+                    .addComponent(playButton)
+                    .addComponent(stopButton))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
     }
