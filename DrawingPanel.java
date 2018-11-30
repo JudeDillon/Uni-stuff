@@ -7,6 +7,12 @@ import javax.swing.JPanel;
 
 public class DrawingPanel extends JPanel
 {
+    //constructor
+    public DrawingPanel(ArrayList Amounts)
+    {
+        this.GraphingAmounts = Amounts;
+    }
+    
     //This is the array that will contain the values going in or out
     ArrayList GraphingAmounts;
     
@@ -16,12 +22,6 @@ public class DrawingPanel extends JPanel
     //A sorted copy of the arrayOfBalances to allow getting the max values by sorting it
     ArrayList<Integer> sortedArrayOfBalances = new ArrayList<Integer>();
     
-    //constructor
-    public DrawingPanel(ArrayList Amounts)
-    {
-        this.GraphingAmounts = Amounts;
-    }
-   
     private int oldX = 50;      
     private int oldY = 325;
     private int segmentSize = 25;

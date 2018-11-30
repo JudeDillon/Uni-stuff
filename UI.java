@@ -1,17 +1,24 @@
 package guitest;
 
 import java.awt.*;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.*;
 import javax.swing.*;
 
 public class UI extends JFrame {
     
+    TimerTest timer1 = new TimerTest();
     private final Control controlPanel = new Control();
-    public Drawing drawingPanel = new Drawing();
-    private final JOptionPane closePane = new JOptionPane();
+    
+    private final int width = 1200;
+    private final int height = 900;
+    private Color malibu = new Color(107, 185, 240);
+
+
     /**
      * Creates new form BankFrame
      */
+    
     public UI() 
     {
         initFrame();
@@ -32,7 +39,7 @@ public class UI extends JFrame {
         {
             public void actionPerformed(ActionEvent e)
             {
-                drawingPanel.playButton(controlPanel.stopButton);
+                playButton(controlPanel.stopButton);
             }
         });
         
@@ -41,6 +48,7 @@ public class UI extends JFrame {
         {
             public void actionPerformed(ActionEvent e)
             {
+                timer1.stopTimer();
                 addDrawingPanels();
             }
         });
@@ -72,27 +80,64 @@ public class UI extends JFrame {
     
     private void addDrawingPanels()
     {
+        Drawing drawingPanel = new Drawing(timer1.getAmountList());
         this.getContentPane().add(drawingPanel);
-        drawingPanel.initPanel();
+        
+        this.setLayoutWithGraph(drawingPanel);
+        
+        this.pack();
+        this.revalidate();
+    }
+    
+    public TimerTest getTimerRef()
+    {
+        return timer1;
+    }
+    
+    public void playButton(JButton graphButton)
+    {
+       //adds the Timer
+        timer1.timer();
     }
     
     private void setLayout()
     {
-        drawingPanel.setBackground(Color.WHITE);
-        setMinimumSize(new java.awt.Dimension(800, 300));
+        //controlPanel.setBackground(malibu);
+        setMinimumSize(new java.awt.Dimension(width, height));
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
+        
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(controlPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(drawingPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addComponent(controlPanel)
+            )
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(controlPanel)
+            
+        );
+    }
+    
+    private void setLayoutWithGraph(JPanel theNewPanel)
+    {
+        //controlPanel.setBackground(malibu);
+        setMinimumSize(new java.awt.Dimension(width,height));
+        GroupLayout layoutWithGraph = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layoutWithGraph);
+        
+        layoutWithGraph.setHorizontalGroup(
+            layoutWithGraph.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layoutWithGraph.createSequentialGroup()
+                .addComponent(controlPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(theNewPanel)
+            )
+        );
+        layoutWithGraph.setVerticalGroup(
+            layoutWithGraph.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(controlPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(drawingPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(theNewPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }
 }
