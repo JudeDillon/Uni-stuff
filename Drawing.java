@@ -1,26 +1,37 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package guitest;
-import java.awt.* ;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import javax.swing.JPanel;
 
-public class DrawingPanel extends JPanel
+import guitest.DrawingPanel;
+import guitest.TimerTest;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import javax.swing.*;
+/**
+ *
+ * @author Gareth
+ */
+
+public class Drawing extends JPanel 
 {
-    //constructor
-    public DrawingPanel(ArrayList Amounts)
+    //add constructor and remove initPanel
+    
+    public Drawing(ArrayList Amounts, ArrayList currentBalance)
     {
-        this.GraphingAmounts = Amounts;
+        this.graphingAmounts = Amounts;
+        this.arrayOfBalances = currentBalance;
     }
     
     //This is the array that will contain the values going in or out
-    ArrayList GraphingAmounts;
+    ArrayList graphingAmounts;
     
     //This will be the array tracking the balances at each month
     ArrayList<Integer> arrayOfBalances = new ArrayList<Integer>();
-    
-    //A sorted copy of the arrayOfBalances to allow getting the max values by sorting it
-    ArrayList<Integer> sortedArrayOfBalances = new ArrayList<Integer>();
     
     private int oldX = 50;      
     private int oldY = 325;
@@ -75,9 +86,9 @@ public class DrawingPanel extends JPanel
             //Drawing the lines is dones with the following for loop
             g2.setStroke(penMed);
             g2.setColor(Color.red);
-            for (int i=0; i<GraphingAmounts.size(); i++)
+            for (int i=0; i<graphingAmounts.size(); i++)
             {
-                Integer currentAmount = (Integer) GraphingAmounts.get(i);
+                Integer currentAmount = (Integer) graphingAmounts.get(i);
                 ballanceInAccount = ballanceInAccount + currentAmount;
                 arrayOfBalances.add(ballanceInAccount);
                 
@@ -92,14 +103,6 @@ public class DrawingPanel extends JPanel
                 oldX = (segmentSize*i)+xBorder;
                 oldY = convertToGraph(ballanceInAccount);
             }
-            //The last part of this is a bunch of methods to sort the data and display the info
-            
-            sortedArrayOfBalances = arrayOfBalances;
-            System.out.println("These are the balances chronologically" + arrayOfBalances);
-            getMaxAndMinBalances();
-            System.out.println("This is the final balance "+ arrayOfBalances.get(arrayOfBalances.size()-1));
-            Collections.sort(sortedArrayOfBalances);      
-            System.out.println("This a list of the sorted balances" + sortedArrayOfBalances);
         }
     
     private int convertToGraph(int amount)
@@ -108,26 +111,5 @@ public class DrawingPanel extends JPanel
         amount = amount/8;
         amount = amount + 425;
         return amount;
-    }
-    
-    private void getMaxAndMinBalances()
-    {
-        System.out.println("This is the max value, " + Collections.max(sortedArrayOfBalances)+ " Which was during month " + findMonthOfBalance(Collections.max(sortedArrayOfBalances)));
-        System.out.println("This is the min value, " + Collections.min(sortedArrayOfBalances)+ " Which was during month " + findMonthOfBalance(Collections.min(sortedArrayOfBalances)));
-    }    
-    
-    private Integer findMonthOfBalance(Integer goalValue)
-    {
-        int i=0;
-        while (true)
-        {
-            
-            if (arrayOfBalances.get(i) == goalValue)
-            {
-                break;
-            }
-            i++;
-        }
-        return i;
     }
 }

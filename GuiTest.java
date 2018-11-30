@@ -12,7 +12,7 @@ public class GuiTest {
     
     public static void main(String[] args) 
     {
-        SmallGUIFrame test = new SmallGUIFrame();
-        test.setVisible(true);
+        UI test = new UI();
+        
     }
 }

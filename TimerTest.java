@@ -5,16 +5,14 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TimerTest
+public class TimerTest extends Timer
 {
     private int CurrentValue = 0;
     ArrayList<Integer> AmountList = new ArrayList<Integer>();
-    Timer t = new Timer();
     
     public void timer() 
     {
-        
-        t.schedule(new TimerTask() 
+        schedule(new TimerTask() 
         {
             @Override
             public void run() 
@@ -54,13 +52,13 @@ public class TimerTest
     
     public Timer getTimer()
     {
-        return t;
+        return this;
     }
     
     public void stopTimer()
     {
-        t.cancel();
-        t.purge();
+        cancel();
+        purge();
     }
     
     public static int getValue(boolean isDeposit, int value)
