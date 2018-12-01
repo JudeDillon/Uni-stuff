@@ -42,19 +42,60 @@ public class Control extends JPanel
         setLayout();
         
         addCom();
-         
-        accTypeBox.addActionListener(
+        
+        createAccBtn.addActionListener(
             new ActionListener()
             {
                 public void actionPerformed(ActionEvent e)
                 {
-                    // Creatng a "Happy" event
-                    //b.;
+                    accTypeBal();
+                    //new AccountInterface();
+                    
+                    //get Account Type and Intial Balanace and convert to the correct Data Types
+                    String accType = accTypeBox.getSelectedItem().toString();
+                    System.out.println(accType);
+                    String accBal = intiBalTxt.getText().toString();
+                    System.out.println(accBal);
+                    int balance = Integer.parseInt(accBal);
+                    System.out.println(balance);
+                    
+                    if (accType=="Current Account"){
+                        
+                    }
+                    else(accType=="Savings Account")
+                            {
+                                }
+                    //Need to convert into Integer
+                    //Exception for above 10 digits
+                    //Exception for not being a number
+
+                }
+            }) ; 
+        
+
+        
+    }
+    
+    private void accTypeBal()
+    {
+         accTypeBox.addActionListener(
+            new ActionListener()
+            {
+                public void actionPerformed(ActionEvent accTypeEvent)
+                {
+                    
+                }
+            }) ;
+        intiBalTxt.addActionListener(
+            new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+
 
                 }
             }) ;
     }
-    
     private void setCom()
     {
         
